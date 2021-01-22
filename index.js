@@ -69,7 +69,6 @@ app.post('/products',async (req,res)=>{
     const newPrd=new Product(req.body);
     await newPrd.save();  //This line takes time  so
     //await it
-    console.log(newPrd);
     res.redirect(`/products/${newPrd._id}`);
 })
 
@@ -78,7 +77,6 @@ app.get('/products/:id',async (req,res)=>{
     const {id}=req.params;
     //req.body also works fine
     const fnd=await Product.findById(id);
-    console.log(fnd);
     // res.send('details page');
     res.render('products/show',{fnd});
 })
@@ -93,8 +91,18 @@ app.listen(3000,function(){
 })
 
 app.get('/products', async (req,res)=>{
-    const products=await Product.find({})
+    const {category}=req.query;
+    if(category){
+        //check whether req.body works fine
+        const products=await Product.find({category})
+        console.log(products);
+        res.render('products/index.ejs',{products,category});
+    }
+    else{
+        const products=await Product.find({})
+        console.log(products);
+        res.render('products/index.ejs',{products,category:'All'});
+    }
     // console.log(products)
     // res.send('All products r here!!');
-    res.render('products/index.ejs',{products});
 })
