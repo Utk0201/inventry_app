@@ -1,4 +1,4 @@
-Download all the codes and save it in the folder,say invApp
+Download all the codes and save it in the folder,say invApp.
 Git bash in invApp
 Make sure you have nodemon installed in your pc.If not, check out here:
     https://www.npmjs.com/package/nodemon
